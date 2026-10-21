@@ -9,13 +9,14 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f0f0f'/%3E%3Cpath d='M32 10l7 7h10v10l7 7-7 7v10H39l-7 7-7-7H15V41l-7-7 7-7V17h10z' fill='none' stroke='%23e3b95f' stroke-width='3'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://i.ytimg.com">
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Outfit:wght@300;400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0f0f0f;--chip:#272727;--text:#f1f1f1;--muted:#aaa;--gold:#e3b95f;--gold2:#f6dc9b;--line:rgba(255,255,255,.12)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:70px}
 body{font-family:'Outfit',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;padding-bottom:env(safe-area-inset-bottom)}
-.orb{position:fixed;border-radius:50%;filter:blur(110px);z-index:-1;opacity:.28;pointer-events:none;animation:float 20s ease-in-out infinite}
+.orb{position:fixed;border-radius:50%;filter:blur(70px);z-index:-1;opacity:.28;pointer-events:none;will-change:transform;animation:float 20s ease-in-out infinite}
 .orb.a{width:400px;height:400px;background:#1fa88a;top:4%;left:-140px}
 .orb.b{width:340px;height:340px;background:#b98a2c;bottom:6%;right:-110px;animation-delay:-8s}
 .orb.c{width:300px;height:300px;background:#8a3ffc;top:42%;right:10%;animation-delay:-4s;opacity:.2}
@@ -85,7 +86,7 @@ main{max-width:1240px;margin:0 auto;padding:24px 20px 90px}
 .art .sw{font-family:'Amiri',serif;font-size:16px;color:hsl(var(--h) 60% 82%);opacity:.85}
 .art .an{font-family:'Amiri',serif;font-weight:700;font-size:clamp(34px,3.4vw,46px);line-height:1.35;color:hsl(var(--h) 95% 82%);text-shadow:0 0 24px hsl(var(--h) 95% 60% / .75)}
 .art .en2{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#ffffffa8}
-.badge{position:absolute;top:8px;left:8px;z-index:3;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);color:#fff;font-size:12px;font-weight:600;padding:3px 9px;border-radius:6px;border:1px solid hsl(var(--h) 80% 60% / .5)}
+.badge{position:absolute;top:8px;left:8px;z-index:3;background:rgba(0,0,0,.72);color:#fff;font-size:12px;font-weight:600;padding:3px 9px;border-radius:6px;border:1px solid hsl(var(--h) 80% 60% / .5)}
 .pl{position:absolute;inset:0;z-index:2;display:grid;place-items:center;opacity:0;transition:.3s;background:linear-gradient(transparent 45%,rgba(0,0,0,.5))}
 .pl i{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:hsl(var(--h) 95% 62%);box-shadow:0 8px 24px -4px #000a;transform:scale(.7);transition:.3s}
 .pl svg{width:20px;height:20px;fill:#101010;margin-left:3px}
@@ -158,6 +159,29 @@ footer .by{font-size:16px;color:#fff3d1;margin-bottom:12px}footer .by b{color:#f
 .sub-btn svg{width:20px;height:20px;fill:#fff}
 .chip:focus-visible,.btn:focus-visible,.x:focus-visible,.tab:focus-visible,.tool:focus-visible{outline:2px solid #8bd3ff;outline-offset:2px}
 
+/* ===== polish: thumbnails, motion, owner tools ===== */
+.own{display:none!important}
+body.owner .own{display:inline-block!important}
+.th{transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+.th.pend{opacity:0;transform:scale(1.08)}
+.poster.skel{background:linear-gradient(100deg,#10151a 30%,#1d2830 50%,#10151a 70%);background-size:220% 100%;animation:skel 1.4s linear infinite}
+@keyframes skel{to{background-position:-220% 0}}
+.poster:not(.nothumb) .ph{display:none}
+.ph i{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;border:1px solid hsl(var(--h) 80% 65% / .5);color:hsl(var(--h) 95% 82%);font-style:normal;font-size:18px;padding-left:3px}
+.pl i{position:relative}
+.pl i::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid hsl(var(--h) 95% 70%);opacity:0}
+.card:hover .pl i::after{animation:ring 1.4s ease-out infinite}
+@keyframes ring{from{opacity:.8;transform:scale(.8)}to{opacity:0;transform:scale(1.5)}}
+.new{position:absolute;top:8px;right:8px;z-index:3;padding:3px 9px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.08em;color:#2a1020;background:linear-gradient(135deg,#ffd36e,#ff9ac8);animation:newpulse 2s ease-in-out infinite}
+@keyframes newpulse{50%{transform:scale(1.08);box-shadow:0 0 16px #ffd36e88}}
+.panel:not([hidden]){animation:panelIn .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes panelIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.sp{position:fixed;z-index:-1;pointer-events:none;width:7px;height:7px;opacity:0;transform:rotate(45deg);animation:twinkle 7s ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:0;transform:rotate(45deg) scale(.4)}50%{opacity:.75;transform:rotate(225deg) scale(1.3)}}
+.tab:active{transform:scale(.95)}
+.tab.on{box-shadow:0 8px 24px -8px #ff9ac8aa}
+.tag{transition:transform .25s}.card:hover .tag{transform:translateX(3px)}
+@media (max-width:640px){.orb{animation:none;filter:blur(55px)}}
 @media (hover:none){
   .card:hover .poster,.card:focus-visible .poster{transform:none;box-shadow:none}
   .card:hover .th{transform:none}
@@ -226,8 +250,8 @@ footer .by{font-size:16px;color:#fff3d1;margin-bottom:12px}footer .by b{color:#f
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
       <input id="q" type="search" placeholder="Search…" autocomplete="off" aria-label="Search">
     </label>
-    <button class="tool" id="mgb" title="Edit topics, assign Surahs, remove links">✎ Manage</button>
-    <button class="tool pri" id="addb">+ Add links</button>
+    <button class="tool own" id="mgb" title="Edit topics, assign Surahs, remove links">✎ Manage</button>
+    <button class="tool pri own" id="addb">+ Add links</button>
   </div>
 </div></div>
 
@@ -254,7 +278,7 @@ footer .by{font-size:16px;color:#fff3d1;margin-bottom:12px}footer .by b{color:#f
 <div class="modal" id="addm" role="dialog" aria-modal="true" aria-label="Add links">
   <div class="box">
     <h3>Add links</h3>
-    <p class="hint">Paste one or many YouTube links (Shorts, youtu.be or normal videos), one per line. Thumbnails and titles are fetched automatically.</p>
+    <p class="hint">Paste one or many YouTube links (Shorts, youtu.be or normal videos), one per line. Thumbnails and titles are fetched automatically. Use the <b>youtube.com/shorts/…</b> form for Shorts so they show as tall posters.</p>
     <label for="addt">Links</label>
     <textarea id="addt" placeholder="https://www.youtube.com/shorts/xxxxxxxxxxx&#10;https://youtu.be/xxxxxxxxxxx"></textarea>
     <div class="pv" id="pv"></div>
@@ -265,9 +289,10 @@ footer .by{font-size:16px;color:#fff3d1;margin-bottom:12px}footer .by b{color:#f
     <div class="row">
       <button class="btn pri" id="adds">Add to page</button>
       <button class="btn sec" id="addcopy" title="Copy a links.js with everything baked in, to paste into your site files">Copy links.js</button>
+      <button class="btn sec" id="addvid" title="Copy a videos.js with titles baked in, so the site loads instantly without any lookups">Copy videos.js</button>
       <button class="btn sec" id="addx">Close</button>
     </div>
-    <p class="hint" style="margin:14px 0 0">Links you add here are saved in this browser. To make them permanent for every visitor, press <b>Copy links.js</b> and replace the file on your site with it.</p>
+    <p class="hint" style="margin:14px 0 0">Links added here are saved in <b>this browser only</b>. To publish them for everyone: press <b>Copy links.js</b>, paste it over <code>links.js</code> on GitHub and commit. The auto-sync then adds titles and thumbnails. (See README.)</p>
   </div>
 </div>
 
@@ -281,8 +306,9 @@ footer .by{font-size:16px;color:#fff3d1;margin-bottom:12px}footer .by b{color:#f
 </footer>
 
 <script src="links.js"></script>
+<script src="videos.js"></script>
 <script>
-window.SHORTS = window.SHORTS || []; window.LESSONS = window.LESSONS || [];
+window.SHORTS = window.SHORTS || []; window.LESSONS = window.LESSONS || []; window.VIDEOS = window.VIDEOS || []; window.HIDDEN = window.HIDDEN || [];
 /* num | transliteration | arabic | meaning | ayahs | M=Meccan D=Medinan */
 const RAW = `
 1|Al-Fatihah|الفاتحة|The Opening|7|M
@@ -411,6 +437,9 @@ const lsSet = (k,v)=>{ try{ localStorage.setItem(k,v); }catch(e){} };
 const lsJSON = (k,d)=>{ try{ const v=JSON.parse(lsGet(k)); return v==null?d:v; }catch(e){ return d; } };
 const RM = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
 const HOVER = !!(window.matchMedia && matchMedia('(hover:hover)').matches);
+/* owner tools (+ Add links, Manage) are hidden from visitors. Open  yoursite/?owner  once to show them in your browser;  ?owner=off  hides them again. */
+const OWNER = (()=>{ try{ const m=location.search.match(/[?&]owner(?:=(\w+))?/); if(m){ if(m[1]==='off') localStorage.removeItem('qs_owner'); else localStorage.setItem('qs_owner','1'); } }catch(e){} return lsGet('qs_owner')==='1'; })();
+if(OWNER) document.body.classList.add('owner');
 const hueOf = s => (String(s).split('').reduce((a,c)=>a*31+c.charCodeAt(0),7)%360);
 
 function videoId(url){
@@ -419,6 +448,31 @@ function videoId(url){
   return m ? m[1] : null;
 }
 const isShort = url => /\/shorts\//.test(url||'');
+const watchUrl = (vid,short)=> short ? `https://www.youtube.com/shorts/${vid}` : `https://www.youtube.com/watch?v=${vid}`;
+const isNew = it => !!(it && it.pub && (Date.now()-Date.parse(it.pub))/864e5 < 14);
+/* thumbnails: try the best size first, fall back to the next on error or on YouTube's tiny grey placeholder */
+function wireThumb(img, vid, short, poster){
+  const names = short ? ['hqdefault','mqdefault','default'] : ['mqdefault','hqdefault','default'];
+  const srcs = names.map(n=>`https://i.ytimg.com/vi/${vid}/${n}.jpg`); let k = 0;
+  const finish = ok=>{ if(poster) poster.classList.remove('skel'); if(ok) img.classList.remove('pend'); else { img.remove(); if(poster) poster.classList.add('nothumb'); } };
+  img.onload = ()=>{ if(img.naturalWidth<=120 && k<srcs.length-1){ img.src = srcs[++k]; return; } finish(true); };
+  img.onerror = ()=>{ if(k<srcs.length-1) img.src = srcs[++k]; else finish(false); };
+  img.src = srcs[0];
+}
+function tilt(el){
+  const po = el.querySelector('.poster'); if(!HOVER || RM || !po) return;
+  el.addEventListener('mousemove',e=>{ const r=po.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+    po.style.transform=`perspective(800px) rotateX(${(-y*10).toFixed(1)}deg) rotateY(${(x*12).toFixed(1)}deg) translateY(-5px)`; });
+  el.addEventListener('mouseleave',()=>{ po.style.transform=''; });
+}
+function setNum(el,to){
+  const from = +(el.dataset.v||0); el.dataset.v = to; const tk = el._tk = (el._tk||0)+1;
+  if(RM || from===to){ el.textContent = to.toLocaleString('en-US'); return; }
+  const t0 = performance.now(), d = 900;
+  const step = now=>{ if(tk!==el._tk) return; const p=Math.min(1,(now-t0)/d), e=1-Math.pow(1-p,3);
+    el.textContent = Math.round(from+(to-from)*e).toLocaleString('en-US'); if(p<1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
 
 /* ===== persistent user data (this browser) ===== */
 let CUSTOM = lsJSON('qs_custom',[]);   // [{url,topic}]  topic '' = auto-detect Surah
@@ -462,16 +516,18 @@ function matchTitle(title){
   const tok = NORM_AR(title).split(/[^ء-ي]+/).filter(Boolean);
   tok.forEach((x,i)=>{ if(x!=='سوره') return;
     [1,2].forEach(sz=>{ const j = tok.slice(i+1,i+1+sz).join(''); if(!j) return; const jb = j.replace(/^ال/,'');
-      ARN.forEach(r=>{ if(r.full.length>=2 && (j===r.full||jb===r.bare||j===r.bare||jb===r.full)) bump(r.n,90+sz); }); }); });
+      ARN.forEach(r=>{ if((r.full.length>=2||sz===1) && (j===r.full||jb===r.bare||j===r.bare||jb===r.full)) bump(r.n,90+sz); }); }); });
   const ks = Object.keys(cands).sort((a,b)=>cands[b]-cands[a]);
   if(!ks.length || (ks.length>1 && cands[ks[0]]===cands[ks[1]])) return null;
   return +ks[0];
 }
 
 /* ===== metadata (title, channel) fetched automatically ===== */
-const META = {};
+const META = {}, BAKED = {};
+(window.VIDEOS||[]).forEach(v=>{ if(v && v.id) BAKED[v.id]=v; });   // videos.js (written by sync_videos.py)
 const getMeta = vid => {
   if(META[vid]) return META[vid];
+  const b = BAKED[vid]; if(b && b.t) return META[vid]={t:b.t,a:b.a||''};
   const j = lsJSON('qs_m_'+vid,null);
   if(j && j.t) return META[vid]=j;
   const old = lsGet('sh_title_'+vid);          // older cache from the previous version
@@ -489,26 +545,30 @@ async function fetchMeta(vid){
   return null;
 }
 
-/* ===== build everything from baked links + custom links + overrides ===== */
+/* ===== build everything: links.js + videos.js (auto-synced) + this browser's own additions ===== */
+const FAILED = new Set();
 let items = [];     // all videos
 let lessons = [];   // videos not assigned to a Surah
 function buildItems(){
-  const seen = new Set(); items = [];
+  const seen = new Set(), hidden = new Set(HIDE); items = [];
+  (window.HIDDEN||[]).forEach(u=>{ const v = videoId(u) || (/^[\w-]{11}$/.test(String(u)) ? String(u) : null); if(v) hidden.add(v); });
   RAW.forEach(s=>{ s.vid=null; s.url=''; s.item=null; });
-  const push = (url,topic,hint,custom)=>{
-    const vid = videoId(url); if(!vid || seen.has(vid) || HIDE.has(vid)) return;
-    seen.add(vid); items.push({vid,url,short:isShort(url),topic:topic||'',hint:hint||'',custom:!!custom});
+  const push = (url,topic,hint,src)=>{
+    const vid = videoId(url); if(!vid || seen.has(vid) || hidden.has(vid)) return;
+    seen.add(vid); const b = BAKED[vid]||{};
+    items.push({vid,url,short: typeof b.s==='boolean' ? b.s : isShort(url), topic:topic||'', hint:hint||'', src, auto:src==='auto', pub:b.p||''});
   };
   (window.SHORTS||[]).forEach(e=>{
-    if(typeof e==='string'){ const p=e.split('|'); push(p[0].trim(),'',p.slice(1).join('|').trim()); }
-    else if(e && e.url) push(String(e.url),e.topic||'',String(e.n||''));
+    if(typeof e==='string'){ const p=e.split('|'); push(p[0].trim(),'',p.slice(1).join('|').trim(),'file'); }
+    else if(e && e.url) push(String(e.url),e.topic||'',String(e.n||''),'file');
   });
-  (window.LESSONS||[]).forEach(e=>{ if(e && e.url) push(String(e.url),e.topic||'Lessons',''); });
-  CUSTOM.forEach(e=>push(e.url,e.topic||'',e.n||'',true));
+  (window.LESSONS||[]).forEach(e=>{ if(e && e.url) push(String(e.url),e.topic||'Lessons','','file'); });
+  CUSTOM.forEach(e=>push(e.url,e.topic||'',e.n||'','custom'));
+  (window.VIDEOS||[]).forEach(v=>{ if(v && v.id && v.auto) push(watchUrl(v.id, v.s!==false),'','','auto'); });
 
   items.forEach(it=>{
     const ov = OV[it.vid]||{}, meta = getMeta(it.vid);
-    it.title = meta?meta.t:''; it.author = meta?meta.a:'';
+    it.title = meta?meta.t:''; it.author = meta?meta.a:''; it.failed = !meta && FAILED.has(it.vid);
     if(ov.topic!=null) it.topic = ov.topic;
     let n = ov.n ? +ov.n : null;
     if(!n && !it.topic){
@@ -518,13 +578,13 @@ function buildItems(){
     }
     if(n>=1 && n<=114){
       const s = RAW[n-1];
-      if(s.vid && s.vid!==it.vid){ it.topic = it.topic||'Unsorted'; it.dupe=true; }
+      if(s.vid && s.vid!==it.vid){ it.topic = it.topic||'More Surah videos'; it.dupe=true; }
       else { s.vid=it.vid; s.url=it.url; s.item=it; it.n=n; }
-    } else if(!it.topic) it.topic = 'Unsorted';
+    } else if(!it.topic) it.topic = it.auto ? 'New uploads' : 'Unsorted';
   });
-  lessons = items.filter(i=>!i.n);
-  $('avail').textContent = RAW.filter(s=>s.vid).length;
-  $('nless').textContent = lessons.length;
+  lessons = items.filter(i=>!i.n).sort((a,b)=>(b.pub||'').localeCompare(a.pub||''));
+  setNum($('avail'), RAW.filter(s=>s.vid).length);
+  setNum($('nless'), lessons.length);
   $('tabcount').textContent = lessons.length ? lessons.length : '';
 }
 const allTopics = () => [...new Set(lessons.map(l=>l.topic))].sort((a,b)=> a==='Unsorted'?1 : b==='Unsorted'?-1 : a.localeCompare(b));
@@ -552,8 +612,9 @@ function renderChips(){
 
 function surahPoster(s){
   const art = `<div class="art"><span class="sw">سورة</span><div class="an">${s.ar}</div><div class="en2">${esc(s.en)}</div></div>`;
-  const img = s.vid ? `<img class="th" loading="lazy" alt="" src="https://i.ytimg.com/vi/${s.vid}/hqdefault.jpg">` : '';
-  return `<div class="poster">${art}${img}<span class="badge">${s.n}</span>
+  const img = s.vid ? `<img class="th pend" loading="lazy" alt="">` : '';
+  const nw = s.item && isNew(s.item) ? '<span class="new">NEW</span>' : '';
+  return `<div class="poster">${art}${img}<span class="badge">${s.n}</span>${nw}
     ${s.vid ? '<div class="pl"><i><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></i></div>' : '<span class="soon">Coming soon</span>'}</div>`;
 }
 
@@ -580,7 +641,7 @@ function renderSurahs(instant){
         <div class="m">${s.n} · ${esc(s.mean)} · ${s.ay} Ayahs · ${s.type}</div>
         ${s.vid?`<div class="mg"><button class="rm" data-act="unassign" data-v="${s.vid}">Move to lessons</button></div>`:''}
       </div>`;
-    const img = el.querySelector('img.th'); if(img) img.addEventListener('error',()=>img.remove());
+    const img = el.querySelector('img.th'); if(img) wireThumb(img, s.vid, s.item?s.item.short:true, null);
     const go = ()=>{ if(s.vid) openSurah(s.n); };
     el.addEventListener('click',e=>{ if(e.target.closest('.mg')) return; if(s.vid && navigator.vibrate) navigator.vibrate(8); go(); });
     el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } });
@@ -608,7 +669,8 @@ function renderLessons(instant){
   if(!list.length){
     grid.innerHTML = lessons.length
       ? '<div class="empty">No lessons match your search.</div>'
-      : '<div class="empty">No lessons yet.<br>Press <b>+ Add links</b> to paste YouTube links and give them a topic. Thumbnails and titles appear automatically.<br><button class="tool pri" id="emptyadd">+ Add links</button></div>';
+      : '<div class="empty">No lessons yet.<br>New topic videos appear here automatically.'
+        + (OWNER ? '<br>Press <b>+ Add links</b> to paste YouTube links and give them a topic.<br><button class="tool pri" id="emptyadd">+ Add links</button>' : '') + '</div>';
     const b = $('emptyadd'); if(b) b.onclick = openAdd; return;
   }
   const topics = allTopics();
@@ -616,11 +678,12 @@ function renderLessons(instant){
     const el = document.createElement('div');
     el.className = 'card'+(l.short?'':' land'); el.tabIndex=0; el.setAttribute('role','button'); el.dataset.i=i;
     el.style.setProperty('--h',hueOf(l.topic));
-    const title = l.title || 'Loading title…';
-    el.innerHTML = `<div class="poster"><img class="th" loading="lazy" alt="" src="https://i.ytimg.com/vi/${l.vid}/${l.short?'hqdefault':'mqdefault'}.jpg">
+    const title = l.title || (l.failed ? 'YouTube video' : 'Loading title…');
+    el.innerHTML = `<div class="poster skel"><div class="art ph"><i>▶</i></div><img class="th pend" loading="lazy" alt="">
+        ${isNew(l)?'<span class="new">NEW</span>':''}
         <div class="pl"><i><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></i></div></div>
-      <div class="info"><div class="t">${esc(title)}</div>
-        <div class="m">${esc(l.author||'YouTube')}${l.short?' · Short':''}</div>
+      <div class="info"><div class="t" dir="auto">${esc(title)}</div>
+        <div class="m" dir="auto">${esc(l.author||'YouTube')}${l.short?' · Short':''}</div>
         <span class="tag">${esc(l.topic)}</span>
         <div class="mg">
           <select data-act="topic" data-v="${l.vid}" aria-label="Topic">
@@ -628,7 +691,8 @@ function renderLessons(instant){
           <select data-act="surah" data-v="${l.vid}" aria-label="Assign to Surah"><option value="">Surah…</option>${RAW.map(s=>`<option value="${s.n}">${s.n}. ${esc(s.en)}</option>`).join('')}</select>
           <button class="rm" data-act="remove" data-v="${l.vid}">Remove</button>
         </div></div>`;
-    const img = el.querySelector('img.th'); img.addEventListener('error',()=>img.remove());
+    wireThumb(el.querySelector('img.th'), l.vid, l.short, el.querySelector('.poster'));
+    tilt(el);
     const go = ()=> openLessons(list, i);
     el.addEventListener('click',e=>{ if(e.target.closest('.mg')) return; go(); });
     el.addEventListener('keydown',e=>{ if(e.target===el && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); go(); } });
@@ -737,7 +801,7 @@ function openAdd(){ addm.classList.add('open'); document.body.style.overflow='hi
 function closeAdd(){ addm.classList.remove('open'); if(!modal.classList.contains('open')) document.body.style.overflow=''; }
 function updPreview(){
   const l = parseLinks($('addt').value), fresh = l.filter(x=>!known(x.vid));
-  $('pv').innerHTML = l.slice(0,12).map(x=>`<img class="${isShort(x.url)?'':'l'}" alt="" src="https://i.ytimg.com/vi/${x.vid}/${isShort(x.url)?'hqdefault':'mqdefault'}.jpg">`).join('');
+  $('pv').innerHTML = l.slice(0,12).map(x=>`<img class="${isShort(x.url)?'':'l'}" alt="" src="https://i.ytimg.com/vi/${x.vid}/${isShort(x.url)?'hqdefault':'mqdefault'}.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${x.vid}/mqdefault.jpg'">`).join('');
   $('pvs').textContent = l.length ? `${fresh.length} new link${fresh.length===1?'':'s'} found` + (l.length>fresh.length?` · ${l.length-fresh.length} already on the page`:'') : '';
 }
 $('addb').onclick = openAdd; $('addx').onclick = closeAdd;
@@ -752,31 +816,39 @@ $('adds').onclick = ()=>{
   if(topic){ tab='lessons'; topicF=topic; document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.tab==='lessons')); $('p-surahs').hidden=true; $('p-lessons').hidden=false; }
   refresh(); resolveMeta(); toast(`${l.length} link${l.length===1?'':'s'} added`);
 };
+const copyText = (txt,msg)=>{
+  (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).catch(()=>{
+    const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+  }).finally(()=>toast(msg));
+};
 function bakedText(){
   const shorts = [], les = [];
   items.forEach(i=>{
-    if(i.n) shorts.push(`  "${i.short?'https://www.youtube.com/shorts/'+i.vid:'https://www.youtube.com/watch?v='+i.vid}|${i.n}"`);
-    else les.push(`  ${JSON.stringify({url:i.short?'https://www.youtube.com/shorts/'+i.vid:'https://www.youtube.com/watch?v='+i.vid,topic:i.topic})}`);
+    if(i.auto) return;                                  // auto-synced videos live in videos.js
+    const u = watchUrl(i.vid, i.short);
+    if(i.n) shorts.push(`  "${u}|${i.n}"`); else les.push(`  ${JSON.stringify({url:u,topic:i.topic})}`);
   });
-  return `/* Quran in Shorts: links file (generated from the page) */\nwindow.SHORTS = [\n${shorts.join(',\n')}\n];\n\nwindow.LESSONS = [\n${les.join(',\n')}\n];\n`;
+  const hid = [...HIDE].map(v=>`  "${v}"`);
+  return `/* Quran in Shorts: links file (generated from the page). See README.md */\nwindow.SHORTS = [\n${shorts.join(',\n')}\n];\n\nwindow.LESSONS = [\n${les.join(',\n')}\n];\n\n/* videos to hide, by video id */\nwindow.HIDDEN = [\n${hid.join(',\n')}\n];\n`;
 }
-$('addcopy').onclick = ()=>{
-  const txt = bakedText();
-  (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).catch(()=>{
-    const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
-  }).finally(()=>toast('Copied. Paste it into links.js on your site'));
-};
+function bakedVideos(){
+  const rows = items.filter(i=>i.title).map(i=>'  '+JSON.stringify({id:i.vid,t:i.title,a:i.author||'',s:i.short,p:i.pub||'',auto:!!i.auto}));
+  return `/* Titles and channel names, so the page loads instantly. Normally written by sync_videos.py */\nwindow.VIDEOS = [\n${rows.join(',\n')}\n];\n`;
+}
+$('addcopy').onclick = ()=>copyText(bakedText(),'Copied. Paste it into links.js on your site');
+$('addvid').onclick = ()=>{ const n = items.filter(i=>!getMeta(i.vid)).length;
+  copyText(bakedVideos(), n ? `Copied (${n} titles not loaded yet; wait a moment and copy again)` : 'Copied. Paste it into videos.js on your site'); };
 
 /* ===== fetch missing titles/channels for all links ===== */
 let resolving = false;
 async function resolveMeta(){
   if(resolving) return; resolving = true;
-  const pending = items.filter(i=>!getMeta(i.vid)).map(i=>i.vid);
+  const pending = items.filter(i=>!getMeta(i.vid) && !FAILED.has(i.vid)).map(i=>i.vid);
   let idx=0, done=0;
-  const worker = async ()=>{ while(idx<pending.length){ const vid = pending[idx++]; await fetchMeta(vid); if(++done%6===0) refresh(); } };
+  const worker = async ()=>{ while(idx<pending.length){ const vid = pending[idx++]; const m = await fetchMeta(vid); if(!m) FAILED.add(vid); if(++done%12===0) refresh(); } };
   await Promise.all([worker(),worker(),worker(),worker()]);
   resolving = false;
-  if(pending.length){ refresh(); const un = lessons.filter(l=>l.topic==='Unsorted').length; if(un) console.warn(un+' links could not be matched to a Surah; see Lessons › Unsorted'); }
+  if(pending.length) refresh();
 }
 
 /* ===== misc ===== */
@@ -787,6 +859,10 @@ let tt; function toast(m){ const t=$('toast'); t.textContent=m; t.classList.add(
     const h=document.documentElement.scrollHeight-innerHeight;
     prog.style.transform=`scaleX(${h>0?Math.min(1,scrollY/h):0})`; topb.classList.toggle('on',scrollY>700); tick=false; }); },{passive:true});
   topb.addEventListener('click',()=>scrollTo({top:0,behavior:RM?'auto':'smooth'}));
+  if(!RM){ const cols=['#ffd36e','#ff9ac8','#8bd3ff','#6fe3c1'];
+    for(let i=0;i<10;i++){ const s=document.createElement('i'); s.className='sp';
+      s.style.left=(Math.random()*100)+'vw'; s.style.top=(Math.random()*100)+'vh'; s.style.background=cols[i%4];
+      s.style.animationDelay=(Math.random()*6).toFixed(1)+'s'; s.style.animationDuration=(5+Math.random()*5).toFixed(1)+'s'; document.body.appendChild(s); } }
 })();
 
 buildItems(); renderAll();

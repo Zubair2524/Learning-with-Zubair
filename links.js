@@ -1,12 +1,18 @@
-/* ------------------------------------------------------------------
-   LINKS FILE (optional). You can also add links directly on the page
-   with the "+ Add links" button; those are saved in your browser, and
-   "Copy links.js" in that panel gives you a file with everything baked in.
+/* ==================================================================
+   YOUR LINKS.  Edit this file on GitHub (pencil icon), then Commit.
+   You never need to type titles: the auto-sync (see README.md) reads
+   them from YouTube and matches each Short to its Surah card.
 
-   SHORTS  : Surah summary videos. Each is matched to its Surah card by title.
-             Add |number to force a Surah, e.g. "https://youtube.com/shorts/xxxx|36"
-   LESSONS : other topics, e.g. { url: "https://youtu.be/xxxx", topic: "Stories of Prophets" }
------------------------------------------------------------------- */
+   SHORTS   Surah summary videos, any order, one per line, in quotes with a comma.
+            Surah is detected from the title. To force one, add |number:
+                "https://www.youtube.com/shorts/VIDEO_ID|36"
+   LESSONS  Other topics:
+                { url: "https://www.youtube.com/shorts/VIDEO_ID", topic: "Stories of the Prophets" },
+   HIDDEN   Video ids you do NOT want on the page.
+
+   Brand-new uploads on your channel are picked up automatically, so you only
+   need to list a video here to give it a topic or to force its Surah.
+   ================================================================== */
 window.SHORTS = [
   "https://www.youtube.com/shorts/uwuqUvJ0cAc|112",
   "https://www.youtube.com/shorts/ght6woEqXSU",
@@ -123,10 +129,17 @@ window.SHORTS = [
   "https://www.youtube.com/shorts/V4wsqfvyZg0",
   "https://www.youtube.com/shorts/4lYNDFIpikM",
   "https://www.youtube.com/shorts/LROtCWp6YZc",
+  "https://www.youtube.com/shorts/stcLrBwug9w",
+  "https://www.youtube.com/video/2gRIXcXm6J4",
+  "https://www.youtube.com/video/1kDmi4S2TQM",
+  "https://www.youtube.com/video/srP9YLeLXWw",
   "https://www.youtube.com/shorts/eOTxjaVQ4FY"
 ];
 
-/* Other Quranic lessons by topic (optional, you can also add these on the page) */
 window.LESSONS = [
-  /* { url: "https://www.youtube.com/shorts/xxxxxxxxxxx", topic: "Stories of the Prophets" }, */
+  /* { url: "https://www.youtube.com/shorts/VIDEO_ID", topic: "Stories of the Prophets" }, */
+];
+
+window.HIDDEN = [
+  /* "VIDEO_ID", */
 ];
